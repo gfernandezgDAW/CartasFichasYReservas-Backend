@@ -11,8 +11,8 @@ export class CrudService<Entity extends CustomBaseEntity> {
     return await this.crudRepository.find();
   }
 
-  async findById(id: any): Promise<Entity[]> {
-    return await this.crudRepository.findBy({
+  async findById(id: any): Promise<Entity> {
+    return await this.crudRepository.findOneBy({
       id,
     });
   }
@@ -22,7 +22,9 @@ export class CrudService<Entity extends CustomBaseEntity> {
   }
 
   async updateById(id: string, data: DeepPartial<Entity>): Promise<any> {
-    return await this.crudRepository.update(id, data as any);
+    const updatedEntity = Object.assign({}, data);
+    updatedEntity.id = id;
+    return await this.crudRepository.save(updatedEntity);
   }
 
   async deleteById(id: string): Promise<DeleteResult> {

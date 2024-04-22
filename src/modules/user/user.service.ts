@@ -20,14 +20,22 @@ export class UserService extends CrudService<User> {
     return await super.create(user);
   }
 
-  override async updateById(id: string, user: DeepPartial<User>): Promise<any> {
-    await this.mailAlreadyExists(user.email);
-    return await super.updateById(id, user);
+  override async updateById(
+    id: string,
+    userDP: DeepPartial<User>,
+  ): Promise<any> {
+    await this.mailAlreadyExists(userDP.email, id);
+    const user = this.userRepository.create(userDP);
+    return await this.userRepository.update(id, user);
   }
 
-  async mailAlreadyExists(email: string) {
+  async mailAlreadyExists(email: string, id?: string) {
     const matches = await this.userRepository.findBy({ email });
-    if (!matches.length) {
+    if (!id && !matches.length) {
+      return;
+    }
+
+    if (id && matches.length === 1 && matches[0].id === id) {
       return;
     }
 

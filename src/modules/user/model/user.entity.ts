@@ -28,7 +28,6 @@ export class User extends CustomBaseEntity {
   @Column()
   dni: string;
 
-  @IsString()
   @Column()
   password: string;
 
@@ -40,6 +39,10 @@ export class User extends CustomBaseEntity {
   @BeforeInsert()
   @BeforeUpdate()
   async hashPassword() {
+    if (!this.password) {
+      return;
+    }
+
     this.password = await bcrypt.hash(this.password, SALT_ROUNDS);
   }
 }
