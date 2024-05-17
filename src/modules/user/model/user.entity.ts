@@ -1,7 +1,9 @@
 import * as bcrypt from 'bcrypt';
 import { IsBoolean, IsOptional, IsString, Matches } from 'class-validator';
 import { CustomBaseEntity } from 'src/shared-modules/custom-base-entity/model/custom-base-entity.entity';
-import { BeforeInsert, BeforeUpdate, Column, Entity } from 'typeorm';
+import { BeforeInsert, BeforeUpdate, Column, Entity, OneToMany } from 'typeorm';
+
+import { Booking } from '../../booking/modal/booking.entity';
 
 const SALT_ROUNDS = 10;
 
@@ -35,6 +37,9 @@ export class User extends CustomBaseEntity {
   @IsOptional()
   @Column({ default: false })
   isAdmin?: boolean;
+
+  @OneToMany(() => Booking, (booking) => booking.user, { onDelete: 'CASCADE' })
+  bookings?: Booking[];
 
   @BeforeInsert()
   @BeforeUpdate()

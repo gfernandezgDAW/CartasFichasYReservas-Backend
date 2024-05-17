@@ -17,7 +17,7 @@ export function initializeWinstonLogger() {
       new winston.transports.Console(),
       new DailyRotateFile({
         dirname: './src/shared-modules/logger/logs',
-        datePattern: 'YYYY-MM-DD',
+        datePattern: 'YYYY-MM-DD HH:mm',
         maxSize: '10m',
         maxFiles: '5d',
         zippedArchive: true,

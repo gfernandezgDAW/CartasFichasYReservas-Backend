@@ -10,4 +10,6 @@ export default registerAs('databaseConfig', () => ({
   entities: [],
   synchronize: true,
   autoLoadEntities: true,
+  timezone: '+00:00',
+  logging: false,
 }));

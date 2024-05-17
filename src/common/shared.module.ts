@@ -4,11 +4,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from '../modules/user/model/user.entity';
 import { UserService } from '../modules/user/user.service';
 
-import { UtilsService } from './services/utils.service';
+import { DateUtilsService } from './services/date-utils.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([User])],
-  providers: [UtilsService, UserService],
-  exports: [UtilsService, UserService],
+  providers: [DateUtilsService, UserService],
+  exports: [DateUtilsService, UserService],
 })
 export class SharedModule {}
