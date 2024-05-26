@@ -27,7 +27,7 @@ export class BookingSubscriber implements EntitySubscriberInterface<Booking> {
 
   async beforeInsert(event: InsertEvent<Booking>) {
     const booking = event.entity;
-    await this.beforeBookingUpsertChecks(booking);
+    await this.beforeBookingUpsertChecks(booking, booking.id || '');
   }
 
   async beforeUpdate(event: UpdateEvent<Booking>) {
@@ -35,13 +35,14 @@ export class BookingSubscriber implements EntitySubscriberInterface<Booking> {
     await this.beforeBookingUpsertChecks(booking, booking.id);
   }
 
-  async beforeBookingUpsertChecks(booking: Booking, bookingId = '') {
+  async beforeBookingUpsertChecks(booking: Booking, bookingId: string) {
     const startOf = booking.startOf;
     const endOf = booking.endOf;
 
     if (!bookingId.length) {
       this.checkBookingDateIsNotBeforeCurrentTime(startOf);
     }
+
     this.checkBookingMinDuration(startOf, endOf);
     this.checkBookingTimeMinAndMax(startOf, endOf);
     await this.checkIfTheAreDateRangesOverlap(

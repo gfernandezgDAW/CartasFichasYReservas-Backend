@@ -139,7 +139,7 @@ export class BookingService extends CrudService<Booking> {
       relations: {
         user: true,
       },
-      loadEagerRelations: false,
+      loadEagerRelations: true,
     });
 
     if (booking.user.id !== userId) {

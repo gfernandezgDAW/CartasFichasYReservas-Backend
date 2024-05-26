@@ -30,16 +30,18 @@ export class Booking extends CustomBaseEntity {
   participants: number;
 
   @ManyToOne(() => BookableSpace, (bookableSpace) => bookableSpace.bookings, {
+    onDelete: 'CASCADE',
     eager: true,
   })
   bookableSpace: BookableSpace;
 
   @ManyToOne(() => BoardGame, (boardGame) => boardGame.bookings, {
+    onDelete: 'CASCADE',
     eager: true,
   })
   boardGame: BoardGame;
 
-  @ManyToOne(() => User, (user) => user.bookings)
+  @ManyToOne(() => User, (user) => user.bookings, { onDelete: 'CASCADE' })
   user: User;
 
   @IsString()

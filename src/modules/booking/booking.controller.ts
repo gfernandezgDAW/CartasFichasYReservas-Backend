@@ -54,6 +54,7 @@ export class BookingController extends CrudEndpointSet<Booking> {
       },
       order: {
         startOf: 'DESC',
+        createdAt: 'DESC',
       },
     });
   }
@@ -76,13 +77,13 @@ export class BookingController extends CrudEndpointSet<Booking> {
 
   @UseGuards(AuthGuard('jwt'), IsAdminGuard)
   @Post('new')
-  async create(@Body() data: DeepPartial<Booking>): Promise<Booking> {
-    return await this.bookingService.create(data);
+  async createBooking(@Body() data: DeepPartial<Booking>): Promise<Booking> {
+    return await this.bookingService.create({ ...data, id: 'newFromAdmin' });
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Post('new/app')
-  async createApp(
+  async createBookingApp(
     @Req() request: RequestData,
     @Body() data: DeepPartial<Booking>,
   ): Promise<Booking> {

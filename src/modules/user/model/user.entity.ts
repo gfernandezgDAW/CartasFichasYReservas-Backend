@@ -4,6 +4,7 @@ import { CustomBaseEntity } from 'src/shared-modules/custom-base-entity/model/cu
 import { BeforeInsert, BeforeUpdate, Column, Entity, OneToMany } from 'typeorm';
 
 import { Booking } from '../../booking/modal/booking.entity';
+import { Suggestion } from '../../suggestion/model/suggestion.entity';
 
 const SALT_ROUNDS = 10;
 
@@ -38,8 +39,11 @@ export class User extends CustomBaseEntity {
   @Column({ default: false })
   isAdmin?: boolean;
 
-  @OneToMany(() => Booking, (booking) => booking.user, { onDelete: 'CASCADE' })
+  @OneToMany(() => Booking, (booking) => booking.user)
   bookings?: Booking[];
+
+  @OneToMany(() => Suggestion, (suggestion) => suggestion.user)
+  suggestions?: Suggestion[];
 
   @BeforeInsert()
   @BeforeUpdate()

@@ -14,12 +14,17 @@ $ npm install
 # Modo development
 $ npm run start:dev
 
-# Modo production (soporte parcial)
+# Modo production (feature inacabada)
 $ npm run start:prod
 ```
 
 ## Información adicional
 Revisar el contenido de los ficheros .env, para configurar la conexión a la base de datos de Mysql y otros parametros del proyecto
+
+Base de datos utilizada durante el desarrollo incluida como ejemplo en la siguiente ruta: test-data/dump-cfyr-example-database.sql
+Configuración de base de datos:
+- Charset: utf8mb4
+- Collation: utf8mb4_0900_ai_ci
 
 ## Acerca del autor
 

@@ -12,6 +12,7 @@ import { BGCategoryModule } from './modules/bg-category/bg-category.module';
 import { BoardGameModule } from './modules/board-game/board-game.module';
 import { BookableSpaceModule } from './modules/bookable-space/bookable-space.module';
 import { BookingModule } from './modules/booking/booking.module';
+import { SuggestionModule } from './modules/suggestion/suggestion.module';
 import { UserModule } from './modules/user/user.module';
 import { CronLogicBookingsModule } from './shared-modules/cron/cron-logic-bookings/cron-logic-bookings.module';
 import { FileUploaderModule } from './shared-modules/file-uploader/file-uploader.module';
@@ -40,6 +41,7 @@ import { FileUploaderModule } from './shared-modules/file-uploader/file-uploader
     BookableSpaceModule,
     BookingModule,
     CronLogicBookingsModule,
+    SuggestionModule,
   ],
 })
 export class AppModule {
