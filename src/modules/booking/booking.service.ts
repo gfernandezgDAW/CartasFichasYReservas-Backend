@@ -38,10 +38,10 @@ export class BookingService extends CrudService<Booking> {
           .select('entity.id')
           .from('bookable_space', 'entity')
           .leftJoin('entity.bookings', 'bookings')
-          .andWhere(':bookingEnd >= bookings.startOf', {
+          .andWhere(':bookingEnd > bookings.startOf', {
             bookingEnd,
           })
-          .andWhere(':bookingStart <= bookings.endOf', {
+          .andWhere(':bookingStart < bookings.endOf', {
             bookingStart,
           })
           .andWhere(`bookings.status not like 'Cancelada'`)
@@ -75,10 +75,10 @@ export class BookingService extends CrudService<Booking> {
       .createQueryBuilder('bg')
       .select(['bg.id as id', 'count(bg.id) as bg_booked_count'])
       .leftJoin('bg.bookings', 'bookings')
-      .where(':bookingEnd >= bookings.startOf', {
+      .where(':bookingEnd > bookings.startOf', {
         bookingEnd,
       })
-      .andWhere(':bookingStart <= bookings.endOf', {
+      .andWhere(':bookingStart < bookings.endOf', {
         bookingStart,
       })
       .andWhere(`bookings.status not like 'Cancelada'`)
@@ -115,10 +115,10 @@ export class BookingService extends CrudService<Booking> {
   ) {
     const selectQueryBuilder = this.bookingRepository
       .createQueryBuilder('entity')
-      .where(':bookingEnd >= entity.startOf', {
+      .where(':bookingEnd > entity.startOf', {
         bookingEnd,
       })
-      .andWhere(':bookingStart <= entity.endOf', {
+      .andWhere(':bookingStart < entity.endOf', {
         bookingStart,
       })
       .andWhere('entity.userId like :userId', {
