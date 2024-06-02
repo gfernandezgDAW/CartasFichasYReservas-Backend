@@ -18,7 +18,7 @@ import { IsAdminGuard } from '../auth/guards/is-admin.guard';
 import { BookingService } from './booking.service';
 import { BookingDto } from './dtos/booking.dto';
 import { DateRangeDto } from './dtos/date-range.dto';
-import { Booking } from './modal/booking.entity';
+import { Booking, BookingNewFromAdminId } from './modal/booking.entity';
 
 @Controller('booking')
 export class BookingController extends CrudEndpointSet<Booking> {
@@ -78,7 +78,10 @@ export class BookingController extends CrudEndpointSet<Booking> {
   @UseGuards(AuthGuard('jwt'), IsAdminGuard)
   @Post('new')
   async createBooking(@Body() data: DeepPartial<Booking>): Promise<Booking> {
-    return await this.bookingService.create({ ...data, id: 'newFromAdmin' });
+    return await this.bookingService.create({
+      ...data,
+      id: BookingNewFromAdminId,
+    });
   }
 
   @UseGuards(AuthGuard('jwt'))

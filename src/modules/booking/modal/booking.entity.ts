@@ -13,6 +13,8 @@ export type BookingStatusType =
   | 'Finalizada'
   | 'Cancelada';
 
+export const BookingNewFromAdminId = 'newFromAdmin';
+
 @Entity()
 export class Booking extends CustomBaseEntity {
   @IsDate()

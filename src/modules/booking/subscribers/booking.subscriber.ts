@@ -9,7 +9,7 @@ import {
 
 import { DateUtilsService } from '../../../common/services/date-utils.service';
 import { BookingService } from '../booking.service';
-import { Booking } from '../modal/booking.entity';
+import { Booking, BookingNewFromAdminId } from '../modal/booking.entity';
 
 @EventSubscriber()
 export class BookingSubscriber implements EntitySubscriberInterface<Booking> {
@@ -28,6 +28,9 @@ export class BookingSubscriber implements EntitySubscriberInterface<Booking> {
   async beforeInsert(event: InsertEvent<Booking>) {
     const booking = event.entity;
     await this.beforeBookingUpsertChecks(booking, booking.id || '');
+    if (booking.id && booking.id === BookingNewFromAdminId) {
+      delete booking.id;
+    }
   }
 
   async beforeUpdate(event: UpdateEvent<Booking>) {
